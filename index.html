@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacked By Nguyễn Ngọc Trí</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: 'Courier New', monospace;
+            color: #0f0;
+            text-shadow: 0 0 10px #0f0, 0 0 20px #0f0;
+            perspective: 800px;
+            /* Ngăn sao chép văn bản */
+            -webkit-user-select: none;  /* Safari */
+            -moz-user-select: none;     /* Firefox */
+            -ms-user-select: none;      /* IE10+ */
+            user-select: none;          /* Standard syntax */
+        }
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            opacity: 0.5;
+        }
+        .hacked-text {
+            font-size: 80px;
+            text-align: center;
+            z-index: 2;
+            position: relative;
+            animation: glitch 1.5s linear infinite;
+            text-shadow:
+                0 0 5px #0f0,
+                0 0 15px #0f0,
+                0 0 30px #0f0,
+                4px 4px 0px #0a0,
+                -4px -4px 0px #0a0,
+                8px 8px 0px rgba(0, 100, 0, 0.4),
+                -8px -8px 0px rgba(0, 100, 0, 0.4);
+            transform: translateZ(10px); /* Chỉ giữ lại đẩy chữ ra phía trước */
+            filter: drop-shadow(0 0 10px #0f0) drop-shadow(0 0 25px #0f0) drop-shadow(0 0 40px rgba(0, 255, 0, 0.5));
+            letter-spacing: 2px;
+            margin-bottom: 50px;
+        }
+        /* CẬP NHẬT CÁC KEYFRAMES ĐỂ CHỮ THẲNG HÀNG */
+        @keyframes glitch {
+            2%, 64% { transform: translate(2px, 0) skew(0deg) translateZ(10px); }
+            4%, 60% { transform: translate(-2px, 0) skew(0deg) translateZ(10px); }
+            62% { transform: translate(0, 0) skew(5deg) translateZ(10px); }
+            6% { text-shadow: -3px 0 #f00, 3px 0 #00f,
+                               0 0 5px #0f0, 0 0 15px #0f0, 0 0 30px #0f0,
+                               4px 4px 0px #0a0, -4px -4px 0px #0a0,
+                               8px 8px 0px rgba(0, 100, 0, 0.4), -8px -8px 0px rgba(0, 100, 0, 0.4); }
+            8% { text-shadow: 3px 0 #f00, -3px 0 #00f,
+                               0 0 5px #0f0, 0 0 15px #0f0, 0 0 30px #0f0,
+                               4px 4px 0px #0a0, -4px -4px 0px #0a0,
+                               8px 8px 0px rgba(0, 100, 0, 0.4), -8px -8px 0px rgba(0, 100, 0, 0.4); }
+        }
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            text-shadow: inherit;
+            transform: inherit; /* Kế thừa transform từ .hacked-text */
+        }
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 #f00;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #00f;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 3s infinite linear alternate-reverse;
+        }
+        /* CẬP NHẬT CÁC KEYFRAMES CHO HIỆU ỨNG GLITCH ĐỂ CHỮ THẲNG HÀNG */
+        @keyframes glitch-anim {
+            0% { clip: rect(44px, 450px, 56px, 0); transform: translateZ(10px); }
+            5% { clip: rect(12px, 450px, 78px, 0); transform: translateZ(10px); }
+            10% { clip: rect(67px, 450px, 23px, 0); transform: translateZ(10px); }
+            15% { clip: rect(34px, 450px, 89px, 0); transform: translateZ(10px); }
+            20% { clip: rect(78px, 450px, 12px, 0); transform: translateZ(10px); }
+            100% { clip: rect(44px, 450px, 56px, 0); transform: translateZ(10px); }
+        }
+        @keyframes glitch-anim2 {
+            0% { clip: rect(65px, 450px, 34px, 0); transform: translateZ(10px); }
+            5% { clip: rect(23px, 450px, 78px, 0); transform: translateZ(10px); }
+            10% { clip: rect(12px, 450px, 56px, 0); transform: translateZ(10px); }
+            15% { clip: rect(89px, 450px, 23px, 0); transform: translateZ(10px); }
+            20% { clip: rect(34px, 450px, 67px, 0); transform: translateZ(10px); }
+            100% { clip: rect(65px, 450px, 34px, 0); transform: translateZ(10px); }
+        }
+
+        .terminal {
+            font-size: 24px;
+            margin-top: 20px;
+            z-index: 2;
+            position: relative;
+            white-space: pre-wrap;
+            width: 80%;
+            max-width: 800px;
+            color: #0f0; /* Màu mặc định */
+            text-shadow: 0 0 5px currentColor, 0 0 15px currentColor;
+        }
+
+        .terminal::before,
+        .terminal::after {
+            content: attr(data-text);
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: -1;
+            white-space: pre-wrap;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .terminal::before {
+            color: #0af;
+            left: 1px;
+            top: 1px;
+            opacity: 0.8;
+        }
+
+        .terminal::after {
+            color: #f0f;
+            left: -1px;
+            top: -1px;
+            opacity: 0.8;
+        }
+
+        audio {
+            display: none;
+        }
+
+        /* Thêm một lớp phủ và văn bản thông báo để hướng dẫn người dùng */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000; /* Đảm bảo nó nằm trên tất cả */
+            display: none; /* Mặc định ẩn, chỉ hiện khi cần */
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: #fff;
+            font-size: 2em;
+            text-shadow: 0 0 10px #fff;
+            text-align: center;
+            cursor: pointer;
+        }
+        .overlay p {
+            margin: 10px 0;
+        }
+        .overlay span {
+            font-size: 0.7em;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div class="hacked-text glitch" data-text="CẢNH BÁO THẰNG NGU F12">CẢNH BÁO THẰNG NGU F12</div>
+
+    <div class="terminal" id="terminal" data-text=""></div>
+    <audio id="background-audio" loop>
+        <source src="nhac.mp3" type="audio/mpeg">
+        Trình duyệt của bạn không hỗ trợ phần tử âm thanh.
+    </audio>
+
+    <div class="overlay" id="audio-overlay">
+        <p>CLICK VÀO ĐÂY ĐỂ BẬT NHẠC!</p>
+        <span>(Trình duyệt chặn tự động phát âm thanh)</span>
+    </div>
+
+    <script>
+        // --- BẮT ĐẦU CODE HIỆU ỨNG MẠNG NHỆN ---
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let particlesArray = [];
+        const numberOfParticles = 100;
+        let hue = 0;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 3 - 1.5;
+                this.speedY = Math.random() * 3 - 1.5;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.size > 0.2) this.size -= 0.1;
+            }
+            draw() {
+                ctx.fillStyle = 'hsl(' + hue + ', 100%, 50%)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particlesArray = [];
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+
+        function handleParticles() {
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+                for (let j = i; j < particlesArray.length; j++) {
+                    const dx = particlesArray[i].x - particlesArray[j].x;
+                    const dy = particlesArray[i].y - particlesArray[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 100) {
+                        ctx.strokeStyle = 'hsla(' + hue + ', 100%, 50%, ' + (1 - distance / 100) + ')';
+                        ctx.lineWidth = 1;
+                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+                        ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+                        ctx.stroke();
+                    }
+                }
+                if (particlesArray[i].size <= 0.2) {
+                    particlesArray.splice(i, 1);
+                    i--;
+                    particlesArray.push(new Particle());
+                }
+            }
+        }
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            handleParticles();
+            hue++;
+            if (hue >= 360) {
+                hue = 0;
+            }
+            requestAnimationFrame(animateCanvas);
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles();
+        });
+
+        initParticles();
+        animateCanvas();
+        // --- KẾT THÚC CODE HIỆU ỨNG MẠNG NHỆN ---
+
+
+        // Bắt đầu code hiệu ứng gõ chữ Terminal
+        const terminal = document.getElementById('terminal');
+        const messages = [
+            "Con Mẹ Mày Đòi F12 Web bố à thằng ngu",
+            "Mày Ngu code đến vậy à chó phải f12 vậy",
+            "Trình của mày chỉ để bú lồn bà già mày à chó",
+            "Mua code ib bố telegram : Nguyentrimodvip",
+            "Đúng con lợn nhựa ngu code ",
+            "Não Chỉ để bú lồn bà già mày ",
+            "Thằng óc chặt"
+        ];
+        let messageIndex = 0;
+        let charIndex = 0;
+        let currentMessage = '';
+        let terminalHue = 0;
+
+        function type() {
+            if (messageIndex < messages.length) {
+                if (charIndex < messages[messageIndex].length) {
+                    currentMessage += messages[messageIndex].charAt(charIndex);
+                    terminal.textContent = `> ${currentMessage}_`;
+                    terminal.setAttribute('data-text', `> ${currentMessage}_`);
+
+                    terminal.style.color = 'hsl(' + terminalHue + ', 100%, 50%)';
+                    terminalHue = (terminalHue + 2) % 360;
+
+                    charIndex++;
+                    setTimeout(type, 100);
+                } else {
+                    terminal.textContent = `> ${currentMessage}`;
+                    terminal.setAttribute('data-text', `> ${currentMessage}`);
+                    setTimeout(() => {
+                        currentMessage = '';
+                        charIndex = 0;
+                        messageIndex++;
+                        if (messageIndex < messages.length) {
+                            type();
+                        } else {
+                            terminal.textContent = `> ${messages[messages.length - 1]}_`;
+                            terminal.setAttribute('data-text', `> ${messages[messages.length - 1]}_`);
+                        }
+                    }, 1000);
+                }
+            }
+        }
+
+        type();
+        // Kết thúc code hiệu ứng gõ chữ Terminal
+
+
+        // Bắt đầu code xử lý nhạc (đã cải tiến)
+        const audio = document.getElementById('background-audio');
+        const audioOverlay = document.getElementById('audio-overlay');
+
+        function tryPlayAudio() {
+            audio.play()
+                .then(() => {
+                    console.log('Nhạc đã được phát.');
+                    audioOverlay.style.display = 'none'; // Ẩn lớp phủ khi nhạc phát thành công
+                })
+                .catch(error => {
+                    console.log('Autoplay bị chặn hoặc lỗi phát nhạc:', error);
+                    audioOverlay.style.display = 'flex'; // Hiện lớp phủ nếu bị chặn
+                });
+        }
+
+        // Thử phát nhạc ngay lập tức khi tải trang
+        // setTimeout để đảm bảo DOM và audio đã sẵn sàng
+        window.addEventListener('load', () => {
+            tryPlayAudio();
+        });
+
+        // Lắng nghe sự kiện click trên lớp phủ để phát nhạc
+        audioOverlay.addEventListener('click', () => {
+            tryPlayAudio();
+        });
+        // Kết thúc code xử lý nhạc
+
+
+        // --- BẮT ĐẦU CODE CHỐNG F12 ---
+
+        // Hàm phản ứng khi phát hiện DevTools
+        function reactToDevTools() {
+            document.body.innerHTML = '<h1 style="color: red; text-align: center; margin-top: 20vh;">BỐ ĐÃ BẢO RỒI THẰNG NGU! ĐỪNG CÓ MÀ F12!!!</h1>';
+            clearInterval(checkDevToolsInterval);
+        }
+
+        // 1. Vô hiệu hóa click chuột phải
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            reactToDevTools();
+        });
+
+        // 2. Vô hiệu hóa phím F12 và các phím tắt liên quan
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12' || e.keyCode === 123 ||
+                (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.keyCode === 73)) ||
+                (e.ctrlKey && e.shiftKey && (e.key === 'J' || e.keyCode === 74)) ||
+                (e.ctrlKey && (e.key === 'U' || e.keyCode === 85))) {
+
+                e.preventDefault();
+                reactToDevTools();
+            }
+        });
+
+        // 3. Phát hiện khi DevTools mở (kỹ thuật dựa trên debugger)
+        let devtoolsAreOpen = false;
+        let checkDevToolsInterval;
+
+        const checkDevTools = function() {
+            const threshold = 160;
+            const startTime = new Date().getTime();
+            debugger;
+            const endTime = new Date().getTime();
+
+            if (endTime - startTime > threshold) {
+                if (!devtoolsAreOpen) {
+                    devtoolsAreOpen = true;
+                    console.log("Phát hiện DevTools đã mở!");
+                    reactToDevTools();
+                }
+            } else {
+                devtoolsAreOpen = false;
+            }
+        };
+
+        checkDevToolsInterval = setInterval(checkDevTools, 500);
+
+        // --- KẾT THÚC CODE CHỐNG F12 ---
+    </script>
+</body>
+</html>
